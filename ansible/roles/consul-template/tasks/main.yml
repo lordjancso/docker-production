@@ -1,6 +1,8 @@
 - name: Directory is created
   file:
     path: /data/consul-template
+    owner: "{{ remote_user }}"
+    recurse: yes
     state: directory
   tags: [consul-template]
 
