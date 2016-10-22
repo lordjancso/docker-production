@@ -1,0 +1,6 @@
+/.idea/
+
+/ansible/group_vars/all
+/ansible/hosts/prod
+
+*.retry

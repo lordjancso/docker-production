@@ -1,0 +1,41 @@
+- hosts: cd
+  remote_user: "{{ remote_user }}"
+  serial: 1
+  vars:
+    - docker_cfg_dest: /lib/systemd/system/docker.service
+    - is_systemd: true
+  roles:
+    - common
+    - docker
+    - docker-compose
+    - consul-template
+    - registry
+
+- hosts: swarm
+  remote_user: "{{ remote_user }}"
+  serial: 1
+  vars:
+    - docker_cfg_dest: /lib/systemd/system/docker.service
+    - is_systemd: true
+    - skip_ui: true
+  roles:
+    - docker
+    - consul
+    - consul-template
+    - swarm
+    - registrator
+
+- hosts: jenkins
+  remote_user: "{{ remote_user }}"
+  serial: 1
+  roles:
+    - common
+    - consul-template
+    - jenkins
+
+- hosts: jenkins-node-swarm
+  remote_user: "{{ remote_user }}"
+  serial: 1
+  roles:
+    - java
+    - jenkins-node

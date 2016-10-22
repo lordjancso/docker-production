@@ -1,0 +1,16 @@
+ip: "{{ ansible_eth0.ipv4.address }}"
+consul_extra: ""
+remote_user: username                              # remote user which is available on all nodes
+registry_ip_and_port: 100.100.100.100:5000         # public ip and port where docker registry is available
+registry_url: 100.100.100.100:5000/
+registry_mirror_ip_and_port: 100.100.100.100:5001
+registry_host_dir: /data/registry
+jenkins_ip: 100.100.100.100
+debian_version: trusty
+docker_cfg_src: docker.cfg
+docker_cfg_dest: /etc/default/docker
+docker_compose_version: 1.7.1
+docker_extra: ""
+jenkins_version: 1.642.4
+git_repo_ssh: git@bitbucket.org:username
+service_name: my_project                           # ideally its the name of the git repo too

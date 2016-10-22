@@ -1,0 +1,64 @@
+- name: Add Docker repository and update apt cache
+  apt_repository:
+    repo: deb https://apt.dockerproject.org/repo ubuntu-{{ debian_version }} main
+    update_cache: yes
+    state: present
+  tags: [docker]
+
+- name: Docker is present
+  apt:
+    name: docker-engine
+    state: latest
+    force: yes
+  tags: [docker]
+
+- name: Python-pip is present
+  apt:
+    name: python-pip
+    state: present
+    force: yes
+  tags: [docker]
+
+- name: Docker-py is present
+  pip:
+    name: docker-py
+    version: 1.6.0
+    state: present
+  tags: [docker]
+
+- name: Files are present
+  template:
+    src: "{{ docker_cfg_src }}"
+    dest: "{{ docker_cfg_dest }}"
+  register: copy_result
+  tags: [docker]
+
+- name: Daemon is reloaded
+  command: systemctl daemon-reload
+  when: copy_result|changed and is_systemd is defined
+  tags: [docker]
+
+- name: Remote user is added to the docker group
+  user:
+    name: "{{ remote_user }}"
+    group: docker
+  register: user_result
+  tags: [docker]
+
+- name: Docker service is restarted
+  service:
+    name: docker
+    state: restarted
+  when: copy_result|changed or user_result|changed
+  tags: [docker]
+
+- name: DockerUI is running
+  docker:
+    image: uifd/ui-for-docker
+    name: dockerui
+    ports: 9000:9000
+    privileged: yes
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+  when: not skip_ui is defined
+  tags: [docker]

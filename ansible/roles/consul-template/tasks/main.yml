@@ -1,0 +1,15 @@
+- name: Directory is created
+  file:
+    path: /data/consul-template
+    state: directory
+  tags: [consul-template]
+
+- name: File downloaded and unarchived
+  unarchive:
+    src: https://releases.hashicorp.com/consul-template/0.16.0/consul-template_0.16.0_linux_amd64.zip
+    dest: /usr/local/bin
+    copy: no
+    mode: 0755
+  args:
+    creates: /usr/local/bin/consul-template
+  tags: [consul-template]

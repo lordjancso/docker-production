@@ -1,0 +1,19 @@
+[all:vars]
+ansible_sudo_pass=MyPass            # if password needed for sudo
+
+[cd]
+100.100.100.100
+
+[swarm-master]
+100.100.100.101
+
+[swarm]                             # swarm-master and all swarm nodes
+100.100.100.101 swarm_master=true consul_extra="-server -bootstrap -ui" docker_cfg_src=docker-swarm-master.service
+100.100.100.102 swarm_master_ip=100.100.100.101 consul_extra="-join 100.100.100.101" consul_server_ip=100.100.100.101 docker_cfg_src=docker-swarm-node.service
+
+[jenkins]                           # cd
+100.100.100.100
+
+[jenkins-node-swarm]                # cd and swarm-master
+100.100.100.100
+100.100.100.101

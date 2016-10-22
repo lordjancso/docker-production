@@ -1,0 +1,5 @@
+- name: Curl is present
+  apt:
+    name: curl
+    state: present
+  tags: [common]

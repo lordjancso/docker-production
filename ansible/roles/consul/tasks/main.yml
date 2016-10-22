@@ -1,0 +1,31 @@
+- name: Directories are created
+  file:
+    path: "{{ item }}"
+    state: directory
+  with_items: "{{ directories }}"
+  tags: [consul]
+
+- name: File downloaded and unarchived
+  unarchive:
+    src: https://releases.hashicorp.com/consul/0.7.0/consul_0.7.0_linux_amd64.zip
+    dest: /usr/local/bin
+    copy: no
+    mode: 0755
+  args:
+    creates: /usr/local/bin/consul
+  tags: [consul]
+
+- name: Is running
+  shell: "nohup consul agent {{ consul_extra }} \
+    -data-dir /data/consul/data \
+    -config-dir /data/consul/config \
+    -node={{ ansible_hostname }} \
+    -bind={{ ip }} \
+    -client=0.0.0.0 \
+    >{{ logs_dir }}/consul.log 2>&1 &"
+  tags: [consul]
+
+- name: Has joined
+  shell: consul join {{ consul_server_ip }}
+  when: consul_server_ip is defined
+  tags: [consul]
