@@ -1,13 +1,12 @@
-- hosts: swarm
+- hosts: localhost
   remote_user: "{{ remote_user }}"
   serial: 1
   vars:
     - docker_cfg_dest: /lib/systemd/system/docker.service
     - is_systemd: true
-    - skip_ui: true
   roles:
+    - common
     - docker
-    - consul
+    - docker-compose
     - consul-template
-    - swarm
-    - registrator
+    - registry

@@ -1,0 +1,14 @@
+- hosts: localhost
+  remote_user: "{{ remote_user }}"
+  serial: 1
+  roles:
+    - common
+    - consul-template
+    - jenkins
+
+- hosts: jenkins-node
+  remote_user: "{{ remote_user }}"
+  serial: 1
+  roles:
+    - java
+    - jenkins-node
