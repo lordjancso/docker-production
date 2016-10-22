@@ -30,6 +30,14 @@
   register: configs_result
   tags: [jenkins]
 
+- name: SSH directory is created
+  file:
+    path: /data/jenkins/.ssh/
+    mode: 0777
+    recurse: yes
+    state: directory
+  tags: [jenkins]
+
 - name: SSH key copied
   copy:
     src: "{{ item.src }}"
