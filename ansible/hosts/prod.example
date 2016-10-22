@@ -1,5 +1,6 @@
 [all:vars]
 ansible_sudo_pass=MyPass            # if password needed for sudo
+ansible_become_pass=MyPass          # if password needed for become
 
 [cd]
 100.100.100.100
