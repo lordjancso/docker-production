@@ -1,6 +1,7 @@
 ip: "{{ ansible_eth0.ipv4.address }}"
 consul_extra: ""
 remote_user: username                              # remote user which is available on all nodes
+cd_ip: 100.100.100.100
 registry_ip_and_port: 100.100.100.100:5000         # public ip and port where docker registry is available
 registry_url: 100.100.100.100:5000/
 registry_mirror_ip_and_port: 100.100.100.100:5001
