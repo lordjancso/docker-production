@@ -5,8 +5,8 @@ import org.apache.commons.httpclient.methods.GetMethod
 def provision(playbook) {
     stage "Provision"
     env.PYTHONUNBUFFERED = 1
-    sh "ansible-playbook /vagrant/ansible/${playbook} \
-        -i /vagrant/ansible/hosts/prod"
+    sh "ansible-playbook /home/lordjancso/docker-production/ansible/${playbook} \
+        -i /home/lordjancso/docker-production/ansible/hosts/prod"
 }
 
 def buildTests(serviceName, registryIpPort) {
