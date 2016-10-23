@@ -22,7 +22,7 @@
   tags: [jenkins]
 
 - name: Configurations are present
-  copy:
+  template:
     src: "{{ item.src }}"
     dest: "{{ item.dir }}/{{ item.file }}"
     mode: "{{ item.mode }}"
