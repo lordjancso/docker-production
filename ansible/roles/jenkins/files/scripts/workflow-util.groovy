@@ -154,10 +154,15 @@ def getAddress(serviceName, prodIp, color) {
 }
 
 def sendHttpRequest(url) {
+    echo '1'
     def get = new GetMethod(url)
+    echo '2'
     new HttpClient().executeMethod(get)
+    echo '3'
     def response = get.getResponseBody()
+    echo '4'
     get.releaseConnection()
+    echo '5'
     return new String(response)
 }
 
