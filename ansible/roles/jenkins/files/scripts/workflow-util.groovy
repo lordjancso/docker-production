@@ -55,16 +55,16 @@ def deployBG(serviceName, prodIp, color) {
 def deploySwarm(serviceName, swarmIp, color, instances) {
     stage "Deploy"
     withEnv(["DOCKER_HOST=tcp://${swarmIp}:2375"]) {
-        sh "docker-compose -f docker-compose-swarm-v2.yml \
+        sh "docker-compose -f docker-compose-prod.yml \
             pull app-${color}"
         try {
             sh "docker network create ${serviceName}"
         } catch (e) {}
-        sh "docker-compose -f docker-compose-swarm-v2.yml \
-            -p ${serviceName} up -d db"
-        sh "docker-compose -f docker-compose-swarm-v2.yml \
+        //sh "docker-compose -f docker-compose-prod-dep.yml \
+        //    -p ${serviceName} up -d"
+        sh "docker-compose -f docker-compose-prod.yml \
             -p ${serviceName} rm -f app-${color}"
-        sh "docker-compose -f docker-compose-swarm-v2.yml \
+        sh "docker-compose -f docker-compose-prod.yml \
             -p ${serviceName} scale app-${color}=${instances}"
     }
     putInstances(serviceName, swarmIp, instances)
@@ -154,15 +154,10 @@ def getAddress(serviceName, prodIp, color) {
 }
 
 def sendHttpRequest(url) {
-    echo '1'
     def get = new GetMethod(url)
-    echo '2'
     new HttpClient().executeMethod(get)
-    echo '3'
     def response = get.getResponseBody()
-    echo '4'
     get.releaseConnection()
-    echo '5'
     return new String(response)
 }
 
