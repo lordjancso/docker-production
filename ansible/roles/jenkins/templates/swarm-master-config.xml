@@ -9,7 +9,7 @@
     <launcher class="hudson.plugins.sshslaves.SSHLauncher" plugin="ssh-slaves@1.9">
         <host>{{ swarm_master_ip }}</host>
         <port>22</port>
-        <credentialsId>c03451d6-4552-4719-9033-39e65a23184c</credentialsId>
+        <credentialsId>0f0d9da8-c1e9-40af-b0b5-13d75e58401e</credentialsId>
         <maxNumRetries>0</maxNumRetries>
         <retryWaitTime>0</retryWaitTime>
     </launcher>
