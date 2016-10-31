@@ -3,3 +3,10 @@
     name: curl
     state: present
   tags: [common]
+
+- name: JQ is present
+  apt:
+    name: jq
+    state: present
+  tags: [common]
+
