@@ -24,3 +24,10 @@ Add or uncomment the following configuration parameters in `/etc/ansible/ansible
 
 - Set variables in `ansible/group_vars/all` file.
 - Set server ip addresses in `ansible/hosts/prod` file.
+
+# Provisioning
+
+    ansible-playbook ansible/cd.yml -i ansible/hosts/prod
+    ansible-playbook ansible/swarm.yml -i ansible/hosts/prod
+    ansible-playbook ansible/jenkins-node-swarm.yml -i ansible/hosts/prod
+    ansible-playbook ansible/jenkins.yml -i ansible/hosts/prod
