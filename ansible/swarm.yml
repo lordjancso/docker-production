@@ -6,6 +6,7 @@
     - is_systemd: true
     - skip_ui: true
   roles:
+    - common
     - docker
     - consul
     - consul-template
